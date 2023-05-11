@@ -17,6 +17,8 @@ OUTLINE_FILE = '/Users/ldtoney/school/defense/iliamna_2016.kml'
 CROWN_COORDS = (60.0277, -153.0749)  # The crown of the landslide (from ESEC entry)
 TARGET_COORDS = (64.8595, -147.8489)  # Where we *place* the crown of the landslide
 PAD = 1000  # [m] Padding around outline for axis limits of output image
+OUTPUT_FILE = 'iliamna_2016_fbx.jpg'  # Output image file, including extension
+DPI = 300  # Output image DPI
 # -----------------------------------------------------------------------------
 
 # So we can read KML files?
@@ -75,4 +77,4 @@ ax.set_ylim(miny - PAD, maxy + PAD)
 fig.show()
 
 # Save result
-fig.savefig('iliamna_2016_fbx.jpg', bbox_inches='tight', pad_inches=0, dpi=300)
+fig.savefig(OUTPUT_FILE, bbox_inches='tight', pad_inches=0, dpi=DPI)
