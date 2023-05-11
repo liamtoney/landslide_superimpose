@@ -34,22 +34,8 @@ ls_img = ls_img.rio.set_nodata(np.nan)
 # We want the outline in the same CRS as the landslide!
 outline = outline.to_crs(ls_target_crs)
 
-# Plot landslide with outline
-fig, ax = plt.subplots()
-ls_img.plot.imshow(ax=ax, cmap='Greys_r', add_colorbar=False)
-outline.plot(ax=ax, facecolor='none', edgecolor='red')
-ax.set_aspect('equal')
-fig.show()
-
 # Clip landslide image to outline
 ls_img_clip = ls_img.rio.clip(outline.geometry)
-
-# Plot clipped landslide
-fig, ax = plt.subplots()
-ls_img_clip.plot.imshow(ax=ax, cmap='Greys_r', add_colorbar=False)
-outline.plot(ax=ax, facecolor='none', edgecolor='red')
-ax.set_aspect('equal')
-fig.show()
 
 # Bring landslide into background image space
 bg_proj = Transformer.from_crs(CRS(bg_target_crs).geodetic_crs, bg_target_crs)
