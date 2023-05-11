@@ -23,45 +23,41 @@ ls_img = rioxarray.open_rasterio(LANDSLIDE_IMAGE).squeeze()
 bg_img = rioxarray.open_rasterio(BACKGROUND_IMAGE).squeeze()
 outline = gpd.read_file(OUTLINE_FILE)
 
-# Re-project everything to UTM
+# Transform both images to UTM
 bg_target_crs = bg_img.rio.estimate_utm_crs(datum_name='WGS 84')
 bg_img = bg_img.rio.reproject(bg_target_crs, resampling=Resampling.cubic_spline)
 ls_target_crs = ls_img.rio.estimate_utm_crs(datum_name='WGS 84')
 ls_img = ls_img.rio.reproject(ls_target_crs, resampling=Resampling.cubic_spline)
-ls_img = ls_img.astype(float)  # Might only work for single-band rasters?
-ls_img = ls_img.rio.set_nodata(np.nan)
+
+# Transform target and crown coordinates to UTM (using their native UTM zone!)
+bg_proj = Transformer.from_crs(CRS(bg_target_crs).geodetic_crs, bg_target_crs)
+target_x, target_y = bg_proj.transform(*TARGET_COORDS)
+ls_proj = Transformer.from_crs(CRS(ls_target_crs).geodetic_crs, ls_target_crs)
+crown_x, crown_y = ls_proj.transform(*CROWN_COORDS)
 
 # We want the outline in the same CRS as the landslide!
 outline = outline.to_crs(ls_target_crs)
 
 # Clip landslide image to outline
+ls_img = ls_img.astype(float)  # Bad idea for large rasters!
+ls_img = ls_img.rio.set_nodata(np.nan)
 ls_img_clip = ls_img.rio.clip(outline.geometry)
 
-# Bring landslide into background image space
-bg_proj = Transformer.from_crs(CRS(bg_target_crs).geodetic_crs, bg_target_crs)
-target_x, target_y = bg_proj.transform(*TARGET_COORDS)
-ls_proj = Transformer.from_crs(CRS(ls_target_crs).geodetic_crs, ls_target_crs)
-crown_x, crown_y = ls_proj.transform(*CROWN_COORDS)
-ls_img_clip_adj = ls_img_clip.copy()
+# KEY: Define transform from "landslide space" to "background space". First, we
+# shift things in "landslide space" so that the crown is at the origin. Then,
+# we shift the crown so that it coincides with the target location in
+# "background space". We are bending the rules here a bit, but it works since
+# everything is in UTM, and the objects we're using know their extents and
+# pixel sizes.
+_transform = lambda x, y: (x - crown_x + target_x, y - crown_y + target_y)
 
+# Transform the clipped landslide "sticker"
+ls_img_clip['x'], ls_img_clip['y'] = _transform(ls_img_clip.x, ls_img_clip.y)
 
-# Define transform from landslide space to background image space
-# Adjust so that the origin is at the crown location in the landslide projection
-# This is where we abuse stuff a bit by blending projections... this is in the
-# background image coordinate system! Works because everything is UTM
-def _transform(x, y):
-    return (x - crown_x + target_x, y - crown_y + target_y)
-
-
-# Transform the landslide "sticker"
-ls_img_clip_adj['x'], ls_img_clip_adj['y'] = _transform(
-    ls_img_clip_adj.x, ls_img_clip_adj.y
-)
-
-# Plot background image w/ clipped landslide
+# Plot background image w/ clipped landslide "sticker"
 fig, ax = plt.subplots()
 bg_img.plot.imshow(ax=ax, add_colorbar=False, add_labels=False)
-ls_img_clip_adj.plot.imshow(ax=ax, cmap='Greys_r', add_colorbar=False, add_labels=False)
+ls_img_clip.plot.imshow(ax=ax, cmap='Greys_r', add_colorbar=False, add_labels=False)
 ax.scatter(target_x, target_y, color='tab:orange', edgecolor='black', marker='*', s=250)
 ax.set_aspect('equal')
 ax.axis('off')
