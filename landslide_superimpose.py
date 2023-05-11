@@ -85,4 +85,5 @@ ax.set_xlim(minx - PAD, maxx + PAD)
 ax.set_ylim(miny - PAD, maxy + PAD)
 fig.show()
 
-# fig.savefig('test.png', bbox_inches='tight', pad_inches=0, dpi=400)
+# Save result
+fig.savefig('iliamna_2016_fbx.png', bbox_inches='tight', pad_inches=0, dpi=300)
