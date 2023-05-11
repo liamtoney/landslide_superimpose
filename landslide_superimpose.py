@@ -20,7 +20,7 @@ TARGET_COORDS = (64.8595, -147.8489)  # Where we *place* the crown of the landsl
 PAD = 1000  # [m] Padding around outline for axis limits
 
 # So we can read KML files?
-fiona.drvsupport.supported_drivers['KML'] = 'rw'
+fiona.drvsupport.supported_drivers['LIBKML'] = 'rw'
 
 # Load in everything
 ls_img = rioxarray.open_rasterio(LANDSLIDE_IMAGE).squeeze()
