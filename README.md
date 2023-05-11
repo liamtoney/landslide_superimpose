@@ -18,7 +18,9 @@ Given the following inputs:
 
 The operations are performed such that the landslide deposit has the same scale
 as the background image. **This can create powerful visualizations of the size
-of events.**
+of events:**
+
+![](iliamna_2016_fbx.png)
 
 All images (rasters) are expected to be in GeoTIFF format. Landslide outlines
 can be KML files or shapefiles. The code *should* [keyword! 😉] be able to
