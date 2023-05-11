@@ -24,7 +24,7 @@ TARGET_COORDS = (64.8595, -147.8489)  # Where we *place* the crown of the landsl
 # Load in everything
 ls_img = rioxarray.open_rasterio(LANDSLIDE_IMAGE).squeeze()
 bg_img = rioxarray.open_rasterio(BACKGROUND_IMAGE).squeeze()
-outline = gpd.read_file(OUTLINE_FILE, driver='KML')
+outline = gpd.read_file(OUTLINE_FILE)
 
 # Re-project everything to UTM
 bg_target_crs = bg_img.rio.estimate_utm_crs(datum_name='WGS 84')
