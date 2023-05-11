@@ -20,7 +20,7 @@ The operations are performed such that the landslide deposit has the same scale
 as the background image. **This can create powerful visualizations of the size
 of events:**
 
-![](iliamna_2016_fbx.png)
+![](iliamna_2016_fbx.jpg)
 
 All images (rasters) are expected to be in GeoTIFF format. Landslide outlines
 can be KML files or shapefiles. The code *should* [keyword! 😉] be able to
