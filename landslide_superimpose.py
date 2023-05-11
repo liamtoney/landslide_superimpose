@@ -62,6 +62,7 @@ ls_proj = Transformer.from_crs(CRS(ls_target_crs).geodetic_crs, ls_target_crs)
 crown_x, crown_y = ls_proj.transform(*CROWN_COORDS)
 ls_img_clip_adj = ls_img_clip.copy()
 
+
 # Define transform from landslide space to background image space
 # Adjust so that the origin is at the crown location in the landslide projection
 # This is where we abuse stuff a bit by blending projections... this is in the
