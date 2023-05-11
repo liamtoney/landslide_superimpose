@@ -54,7 +54,7 @@ outline.plot(ax=ax, facecolor='none', edgecolor='red')
 ax.set_aspect('equal')
 fig.show()
 
-# Bring landslide into backgroun image space
+# Bring landslide into background image space
 bg_proj = Transformer.from_crs(CRS(bg_target_crs).geodetic_crs, bg_target_crs)
 target_x, target_y = bg_proj.transform(*TARGET_COORDS)
 ls_proj = Transformer.from_crs(CRS(ls_target_crs).geodetic_crs, ls_target_crs)
