@@ -1,6 +1,4 @@
-"""
-Uses `nodal` conda environment.
-"""
+#!/usr/bin/env python
 
 import fiona
 import geopandas as gpd
