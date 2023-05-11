@@ -58,7 +58,10 @@ _transform = lambda x, y: (x - crown_x + target_x, y - crown_y + target_y)
 # Transform the clipped landslide "sticker"
 ls_img_clip['x'], ls_img_clip['y'] = _transform(ls_img_clip.x, ls_img_clip.y)
 
-# Plot background image w/ clipped landslide "sticker"
+# Plot background image w/ clipped landslide "sticker" — note that this code
+# would need to be tweaked if a multiband (i.e., R-G-B) landslide image were
+# provided. Here we just specify a grayscale colormap since it's a single-band
+# (NIR) image.
 fig, ax = plt.subplots()
 bg_img.plot.imshow(ax=ax, add_colorbar=False, add_labels=False)
 ls_img_clip.plot.imshow(ax=ax, cmap='Greys_r', add_colorbar=False, add_labels=False)
