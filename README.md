@@ -31,7 +31,7 @@ are expected to be (latitude, longitude) in the WGS 84 datum.
 
 1. Obtain
    ```
-   git clone https://github.com/liamtoney/landslide_superimpose.git
+   git clone --depth 1 https://github.com/liamtoney/landslide_superimpose.git
    cd landslide_superimpose
    ```
 
