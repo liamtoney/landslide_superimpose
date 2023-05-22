@@ -11,9 +11,9 @@ from rasterio.enums import Resampling
 # -----------------------------------------------------------------------------
 # EDIT ME!
 # -----------------------------------------------------------------------------
-LANDSLIDE_IMAGE = '/Users/ldtoney/work/iliamna_avalanches/imagery/planet/2016_nir.tif'
-BACKGROUND_IMAGE = '/Users/ldtoney/school/defense/20220608_composite.tif'
-OUTLINE_FILE = '/Users/ldtoney/school/defense/iliamna_2016.kml'
+LANDSLIDE_IMAGE = '/Users/ldtoney/school/defense/presentation/iliamna_superimpose/2016_nir.tif'
+BACKGROUND_IMAGE = '/Users/ldtoney/school/defense/presentation/iliamna_superimpose/20220608_composite.tif'
+OUTLINE_FILE = '/Users/ldtoney/school/defense/presentation/iliamna_superimpose/iliamna_2016.kml'
 CROWN_COORDS = (60.0277, -153.0749)  # The crown of the landslide (from ESEC entry)
 TARGET_COORDS = (64.8595, -147.8489)  # Where we *place* the crown of the landslide
 PAD = 1000  # [m] Padding around outline for axis limits of output image
