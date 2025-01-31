@@ -36,10 +36,10 @@ are expected to be (latitude, longitude) in the WGS 84 datum.
    ```
 
 2. Create environment, install, and activate
-   ([install conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
+   ([install Miniforge](https://github.com/conda-forge/miniforge/blob/main/README.md#install)
    first, if necessary)
    ```
-   conda env create
+   mamba env create
    conda activate landslide_superimpose
    ```
 
