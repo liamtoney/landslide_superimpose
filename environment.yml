@@ -2,6 +2,7 @@ name: landslide_superimpose
 channels:
   - conda-forge
 dependencies:
+  - fiona  # For geospatial vector I/O & re-projection
   - geopandas  # For geospatial vector I/O & re-projection
   - ipython  # For interactive Python console
   - matplotlib  # For plotting images
